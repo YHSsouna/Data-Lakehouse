@@ -1,0 +1,33 @@
+version: 2
+
+sources:
+  - name: source
+    schema: source       # Corresponds to demo.source in Iceberg
+    tables:
+      - name: labellevie
+      - name: auchan
+      - name: carrefour
+      - name: biocoop
+      - name: biocoop_cat
+      - name: auchan_cat
+      - name: labellevie_cat
+      - name: carrefour_cat
+      - name: labellevie_norm
+      - name: auchan_norm
+      - name: store_img
+      - name: biocoop_section
+      - name: auchan_section
+      - name: labellevie_section
+      - name: carrefour_section
+
+  - name: bronze
+    schema: bronze       # Corresponds to demo.bronze
+    database: demo
+    tables:
+      - name: stg_auchan
+
+  - name: silver
+    schema: silver       # Corresponds to demo.silver
+    database: demo
+    tables:
+      - name: inter_auchan

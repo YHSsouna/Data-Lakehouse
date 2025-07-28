@@ -1,0 +1,24 @@
+retail:
+  target: dev
+  outputs:
+    dev:
+      type: spark
+      method: session
+      host: localhost
+      # For Iceberg with catalog, use the catalog name as schema
+      schema: demo
+      threads: 2
+      spark_config:
+        spark.sql.catalog.demo: org.apache.iceberg.spark.SparkCatalog
+        spark.sql.catalog.demo.type: rest
+        spark.sql.catalog.demo.uri: http://rest:8181
+        spark.sql.catalog.demo.warehouse: s3://warehouse/warehouse/
+        spark.sql.catalog.demo.io-impl: org.apache.iceberg.aws.s3.S3FileIO
+        spark.sql.catalog.demo.s3.endpoint: http://minio:9000
+        spark.hadoop.fs.s3a.access.key: admin
+        spark.hadoop.fs.s3a.secret.key: password
+        spark.hadoop.fs.s3a.endpoint: http://minio:9000
+        spark.hadoop.fs.s3a.path.style.access: true
+        spark.sql.extensions: org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions
+        # Set the default catalog to demo
+        spark.sql.defaultCatalog: demo
