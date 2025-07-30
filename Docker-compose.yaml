@@ -106,5 +106,21 @@ services:
       fi;
       tail -f /dev/null
       "
+
+  dbt:
+    image: ghcr.io/tabular-io/dbt-iceberg:1.7.0
+    container_name: dbt-iceberg
+    depends_on:
+      - spark-iceberg
+      - rest
+      - minio
+    networks:
+      - iceberg_net
+    volumes:
+      - ./retail_analysis:/app       # your dbt project
+      - ~/.dbt:/root/.dbt            # profiles.yml
+    working_dir: /app
+    entrypoint: [ "tail", "-f", "/dev/null" ]
+
 networks:
   iceberg_net:
